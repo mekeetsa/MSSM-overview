@@ -1,0 +1,1178 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0cm,nohead]{geometry}
+\usepackage[active,tightpage]{preview}
+
+\usepackage{tikz,amsmath,amssymb,bm,color,cancel}
+
+%\usepackage{newtxtext}
+%\usepackage{newtxmath}
+
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing}
+
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{-1mm}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Macros
+
+\newcommand{\bb}[2]{
+	\!\!{\tt #1}
+	\\[6pt]
+	~{\large \color{blue} #2}
+}
+\newcommand{\bbb}[3]{
+	\!\!{\tt #1}
+	\\[6pt]
+	~{\large \color{blue} #2}
+	\\[6pt]
+	~{#3}
+}
+
+\newcommand{\tr}{\mathsf{{\scriptscriptstyle T}}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\ee}{\operatorname{e}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\op}[1]{\operatorname{#1}}
+
+\newcommand{\pL}{\mathsf{\scriptscriptstyle L}}
+\newcommand{\pR}{\mathsf{\scriptscriptstyle R}}
+\newcommand{\pC}{\mathsf{\scriptscriptstyle C}}
+
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+
+\newcommand{\suY}{\mathrm{\scriptscriptstyle Y}}
+\newcommand{\suL}{\mathrm{\scriptscriptstyle L}}
+\newcommand{\suC}{\mathrm{\scriptscriptstyle C}}
+
+\newcommand{\dbar}[1]{\overline{#1}}
+\newcommand{\sbar}[1]{\bar{#1}}
+\newcommand{\anti}[1]{\bar{#1}}
+
+\newcommand{\quantNo}[3]{\mathbf{#1},\mathbf{#2},#3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Box styles
+
+\tikzset{myRow/.style     ={draw,anchor=north west,rectangle}}
+\tikzset{boxWhite/.style  ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=white}}
+\tikzset{boxGray/.style   ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=gray!10}}
+\tikzset{boxRed/.style    ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=red!4}}
+\tikzset{boxGreen/.style  ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=green!2}}
+\tikzset{boxYellow/.style ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=yellow!5}}
+\tikzset{boxBlue/.style   ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=blue!2}}
+\tikzset{boxCyan/.style   ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=cyan!2}}
+\tikzset{boxRed2/.style   ={draw,anchor=north west,rectangle, very thin, rounded corners=5pt, fill=magenta!6}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% R/C styles
+
+\tikzset{R10/.style={minimum height=10mm}}
+\tikzset{R15/.style={minimum height=15mm}}
+\tikzset{R20/.style={minimum height=20mm}}
+\tikzset{R25/.style={minimum height=25mm}}
+\tikzset{R30/.style={minimum height=30mm}}
+\tikzset{C10/.style={minimum width=10mm}}
+\tikzset{C15/.style={minimum width=15mm}}
+\tikzset{C20/.style={minimum width=20mm, text width=17mm}}
+\tikzset{C22c5/.style={minimum width=22.5mm, text width=20.5mm}}
+\tikzset{C25/.style={minimum width=25mm, text width=22mm}}
+\tikzset{C30/.style={minimum width=30mm, text width=27mm}}
+\tikzset{C35/.style={minimum width=35mm, text width=32mm}}
+\tikzset{C40/.style={minimum width=40mm, text width=37mm}}
+\tikzset{C45/.style={minimum width=45mm, text width=42mm}}
+\tikzset{C50/.style={minimum width=50mm, text width=47mm}}
+\tikzset{C55/.style={minimum width=55mm, text width=52mm}}
+\tikzset{C60/.style={minimum width=60mm, text width=57mm}}
+\tikzset{C65/.style={minimum width=65mm, text width=62mm}}
+\tikzset{C70/.style={minimum width=70mm, text width=67mm}}
+\tikzset{C75/.style={minimum width=75mm, text width=72mm}}
+\tikzset{C80/.style={minimum width=80mm, text width=77mm}}
+\tikzset{C85/.style={minimum width=85mm, text width=82mm}}
+\tikzset{C90/.style={minimum width=90mm, text width=87mm}}
+\tikzset{C95/.style={minimum width=95mm, text width=92mm}}
+\tikzset{C100/.style={minimum width=100mm, text width=97mm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paper W/H
+
+\def\paperWidth{420mm}
+\def\paperHeight{297mm}
+
+%\draw [yellow] (-0.5*\paperWidth,-0.5*\paperHeight) rectangle (0.5*\paperWidth,0.5*\paperHeight);
+%\draw [red,dashed] (-0.5*\paperWidth,-0.5*\paperHeight) rectangle (0.5*\paperWidth,0.5*\paperHeight);
+%\draw [blue!40] (-20.5,14.5) rectangle (20.5,-14.5);
+
+\node at (-20.5,14.5) {}; \node at (20.5,-14.5) {};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title
+
+\node [color=black] at (0,14.25) {
+	\huge\sf The field content of the Minimal Supersymmetric Standard Model (MSSM)
+};
+
+\node [anchor=north, color=black] at (0,13.9) {
+	by M.B.Kocic ~--~ Version 1.05 (2016-01-25) ~--~ SUSYRC-HT15
+};
+
+\pdfinfo {
+%	/CreationDate	(D:20160121124500)
+	/Title			(The field content of the Minimal Supersymmetric Standard Model (MSSM))
+	/Author			(Mikica B Kocic)
+	/Subject		(SUSYRC-HT15)
+	/Keywords		(QFT MSSM Supersymmetry)
+	/Creator		(TeX-TikZ)
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Vector superm.
+
+\tikzset{myRow/.style={boxRed,R10}}
+
+\node [myRow,C30,align=center,inner sep=0] at (-20.5,13) {
+	\textsf{\textbf{Vector}\\[-0.3em]supermultiplets}
+};
+
+\node [boxRed,inner sep=0,minimum height=7.5mm,minimum width=30mm,rotate=90] at (-20.5,9) {
+	\textsf{Gauge fields}
+};
+
+\node [myRow,C20,align=center] at (-17.5,13) {
+	Superfield
+};
+
+\node [myRow,C20,align=center] at (-15.5,13) {
+	Adj.\,repr.
+};
+
+\node [myRow,C35,align=center] at (-13.5,13) {
+	Spin-1\\[-0.2em]\small (gauge bosons)
+};
+
+\node [myRow,C35,align=center] at (-10,13) {
+	Spin-1/2\\[-0.2em]\small (gauginos)
+};
+
+\node [myRow,C15,align=center] at (-6.5,13) {
+	Aux.
+};
+
+\node [myRow,C85,align=center] at (-5,13) {
+	~\hfill Vector superfield (in Wess-Zumino gauge) \hfill~
+};
+
+\node [minimum height=5mm] at (-14.5,-2.75) {\small
+	N.B. Quantum numbers of the fields in the MSSM 
+	are the same as in the SM.
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% U(1)
+
+\tikzset{myRow/.style={boxYellow,R10}}
+
+\node [myRow,C22c5,align=center] at (-19.75,12) {
+	$\op{U}(1)_\suY$
+};
+
+\node [myRow,C20,align=center] at (-17.5,12) {
+	$V_\suY$
+};
+
+\node [myRow,C20,align=center] at (-15.5,12) {
+	$\quantNo{1}{1}{0}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,12) {
+	$B_\mu$,~ B-boson
+};
+
+\node [myRow,C35,align=center] at (-10,12) {
+	$\lambda_\suY \equiv \widetilde{B}$,~ bino
+};
+
+\node [myRow,C15,align=center] at (-6.5,12) {
+	$D_\suY$
+};
+
+\node [myRow,C85,align=left] at (-5,12) {\,
+	$ \displaystyle
+	V_\suY \equiv 
+		\theta \, \sigma^\mu \, \sbar{\theta} \, B_\mu \, 
+		+ \theta\theta\, \sbar{\theta}\sbar{\lambda}_\suY 
+		+ \sbar{\theta}\sbar{\theta} \, \theta\lambda_\suY
+		+ \tfrac{1}{2} \theta\theta \, \sbar{\theta}\sbar{\theta} \, D_\suY
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SU(2)
+
+\tikzset{myRow/.style={boxYellow,R10}}
+
+\node [myRow,C22c5,align=center] at (-19.75,11) {
+	$\op{SU}(2)_\suL$
+};
+
+\node [myRow,C20,align=center] at (-17.5,11) {
+	$V^i_\suL$
+};
+
+\node [myRow,C20,align=center] at (-15.5,11) {
+	$\quantNo{1}{3}{0}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,11) {
+	$W^i_\mu$,~ W-bosons
+};
+
+\node [myRow,C35,align=center] at (-10,11) {
+	$\lambda^i_\suL \equiv \widetilde{W}^i$,~ winos
+};
+
+\node [myRow,C15,align=center] at (-6.5,11) {
+	$D^i_\suL$
+};
+
+\node [myRow,R10,C85,align=left] at (-5,11) {\,
+	$ \displaystyle
+	V^i_\suL \equiv 
+		\theta \, \sigma^\mu \, \sbar{\theta} \, W^i_\mu \, 
+		+ \theta\theta\, \sbar{\theta}\sbar{\lambda}^i_\suL 
+		+ \sbar{\theta}\sbar{\theta} \, \theta\lambda^i_\suL
+		+ \tfrac{1}{2} \theta\theta \, \sbar{\theta}\sbar{\theta} \, D^i_\suL
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SU(3)
+
+\node [myRow,C22c5,align=center] at (-19.75,10) {
+	$\op{SU}(3)_\mathrm{\scriptscriptstyle C}$
+};
+
+\node [myRow,C20,align=center] at (-17.5,10) {
+	$V^a_\suC$
+};
+
+\node [myRow,C20,align=center] at (-15.5,10) {
+	$\quantNo{8}{1}{0}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,10) {
+	$g^a_\mu$, gluons
+};
+
+\node [myRow,C35,align=center] at (-10,10) {
+	$\lambda^a_\suC \equiv \widetilde{g}^a$,~ gluinos
+};
+
+\node [myRow,C15,align=center] at (-6.5,10) {
+	$D^a_\suC$
+};
+
+\node [myRow,R10,C85,align=left] at (-5,10) {\,
+	$ \displaystyle
+	V^a_\suC \equiv 
+		\theta \, \sigma^\mu \, \sbar{\theta} \, g^a_\mu \, 
+		+ \theta\theta\, \sbar{\theta}\sbar{\lambda}^a_\suC 
+		+ \sbar{\theta}\sbar{\theta} \, \theta\lambda^a_\suC
+		+ \tfrac{1}{2} \theta\theta \, \sbar{\theta}\sbar{\theta} \, D^a_\suC
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Lagrangian
+
+\node [boxWhite,black!60!blue,minimum height=7.5mm,minimum width=162.5mm,text width=158mm,align=center] at (4.25,13) {
+	\color{white}\Large\textsf{\textbf{The MSSM Lagrangian}}
+};
+
+\tikzset{myRow/.style={boxRed,R10}}
+
+\node [myRow,C80,align=center] at (4.25,12) {
+	The (matter) kinetic term
+};
+
+\node [myRow,C80,align=center] at (12.5,8.6) {
+	The Yukawa interaction term
+};
+
+\node [myRow,C80,align=center] at (12.5,12) {
+	The gauge kinetic term
+};
+
+\tikzset{myRow/.style={boxYellow,R10}}
+
+\node [myRow,minimum height=50mm,C80,align=left] at (4.25,11) { \\[0.1em]
+	\hfill $ \displaystyle
+		\mathcal{L}^\mathrm{kin} =
+		\sum_{\Phi,\,gV}
+		\Phi^\dagger \ee^{2gV} \Phi \big\rvert_D
+	$ \hfill\! \\[0.3em]
+	$ gV $ runs over all the gauge superfields, \\[0.3em]
+	\hfill $
+		\{ \; g V_\suY, \; g_i V^i_\suL t^i, \; g_a V^a_\suC T^a \; \}
+	$,\hfill\!\\[0.5em]
+	$\Phi$ runs over all the matter superfields, \\[0.3em]
+	\hfill $
+		\{ \, Q_I,\, U_I,\, D_I,\, L_I,\, N_I,\, E_I,\, H_u,\, H_d \, \}
+	$, \hfill\!\\[0.3em]
+	in the appropriate respresentation where \\
+	$I=1,2,3$ is the family index.
+
+};
+
+\node [myRow,minimum height=16mm,C80,align=left] at (12.5,7.6) {
+	\\[0.1em]
+	\hfill $
+	\mathcal{L}^\mathrm{Yuk} =
+		\mathcal{W}(\Phi) \big\rvert_F + \mathrm{ h.c.}
+	$ \hfill\!\\[0.5em]
+	$\mathcal{W}$ is the superpotential (given below)
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chiral superm.
+
+\tikzset{myRow/.style={boxRed,R10}}
+
+\node [myRow,C30,align=center,inner sep=0] at (-20.5,8.5) {
+	\textsf{\textbf{Chiral}\\[-0.3em]supermultiplets}
+};
+
+\node [boxRed,inner sep=0,minimum height=7.5mm,minimum width=70mm,rotate=90] at (-20.5,0.5) {
+	\textsf{Matter fields}
+};
+
+\node [boxRed,inner sep=0,minimum height=7.5mm,minimum width=30mm,rotate=90] at (-20.5,-2.5) {
+	\textsf{Higgs fields}
+};
+
+\node [myRow,C20,align=center] at (-17.5,8.5) {
+	Superfield
+};
+
+\node [myRow,C20,align=center] at (-15.5,8.5) {
+	Repr.
+};
+\node [myRow,C35,align=center] at (-13.5,8.5) {
+	Spin-1/2\\[-0.2em]\small (fermions)
+};
+
+\node [myRow,C35,align=center] at (-10,8.5) {
+	Spin-0\\[-0.2em]\small (sfermions)
+};
+
+\node [myRow,C15,align=center] at (-6.5,8.5) {
+	Aux.
+};
+
+\node [myRow,C85,align=center] at (-5,8.5) {
+	~\hfill Chiral superfield (in terms of $y^\mu = x^\mu - \ii\, \theta\sigma^\mu\sbar\theta$) \hfill~
+};
+
+\tikzset{myRow/.style={boxYellow,R10}}
+
+\node [myRow,minimum height=35mm,C22c5,align=center,inner xsep=0] at (-19.75,7.5) {
+	\textsf{quarks,}\\
+	\textsf{s(calar) quarks}
+};
+
+\node [myRow,minimum height=35mm,C22c5,align=center,inner xsep=0] at (-19.75,4) {
+	\textsf{leptons,}\\
+	\textsf{s(calar) leptons}
+};
+
+
+\node [myRow,minimum height=30mm,C22c5,align=center,inner xsep=0] at (-19.75,0.5) {
+	\textsf{higgsinos,}\\
+	\textsf{higgs}
+};
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Quark, L-doublet
+
+\tikzset{myRow/.style={boxYellow,R15}}
+
+\node [myRow,C20,align=center] at (-17.5,7.5) {
+	$ Q_I $
+};
+
+\node [myRow,C20,align=center] at (-15.5,7.5) {
+	$\quantNo{3}{2}{+\frac{1}{6}}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,7.5) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} u_\pL \\ d_\pL \end{pmatrix}\!,~
+		\begin{pmatrix} \chi_u \\ \chi_d \end{pmatrix}
+	$
+};
+
+\node [myRow,C35,align=center] at (-10,7.5) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} \widetilde{u}_\pL \\ \widetilde{d}_\pL \end{pmatrix}\!,~
+		\begin{pmatrix} \widetilde{\phi}_u \\ \widetilde{\phi}_d \end{pmatrix}
+	$
+};
+
+\node [myRow,C15,align=center] at (-6.5,7.5) {
+	$  \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} F_u \\ F_d \end{pmatrix}
+	$\!\!
+};
+
+\node [myRow,C85,align=left] at (-5,7.5) {~
+	$  \renewcommand{\arraystretch}{1.2}
+	Q = Q_1 = 
+		\begin{pmatrix}
+			\widetilde{\phi}_u + \sqrt2 \, \theta \chi_u + \theta\theta \, F_u \\ 
+			\widetilde{\phi}_d + \sqrt2 \, \theta \chi_d + \theta\theta \, F_d 
+		\end{pmatrix}
+	$
+};
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Anti-u, L
+
+\tikzset{myRow/.style={boxBlue,R10}}
+
+\node [myRow,C20,align=center] at (-17.5,6) {
+	$U_I$ ($\anti{u}_I$)
+};
+
+\node [myRow,C20,align=center] at (-15.5,6) {
+	$\quantNo{\overline3}{1}{-\frac{2}{3}}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,6) {
+	$\anti{u}_\pL = (u_\pR)^\pC$,
+	$\chi_{\anti{u}}$
+};
+
+\node [myRow,C35,align=center] at (-10,6) {
+	$\widetilde{\anti{u}}_\pL$, $\widetilde{\phi}_{\anti{u}}$
+};
+
+\node [myRow,C15,align=center] at (-6.5,6) {
+	$F_{\anti{u}}$
+};
+
+\node [myRow,C85,align=left] at (-5,6) {~
+	$ \anti{u} = U_1 = 
+		\widetilde{\phi}_{\anti{u}}
+		+ \sqrt2\, \theta \chi_{\anti{u}}
+		+ \theta\theta \, F_{\anti{u}}
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Anti-d, L
+
+\tikzset{myRow/.style={boxBlue,R10}}
+
+\node [myRow,C20,align=center] at (-17.5,5) {
+	$D_I$ ($\anti{d}_I$)
+};
+
+\node [myRow,C20,align=center] at (-15.5,5) {
+	$\overline{\mathbf{3}}, \mathbf{1}, +\frac{1}{3}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,5) {
+	$\anti{d}_\pL = (d_\pR)^\pC$,
+	$\chi_{\anti{d}}$
+};
+
+\node [myRow,C35,align=center] at (-10,5) {
+	$\widetilde{\anti{d}}_\pL$, $\widetilde{\phi}_{\anti{d}}$
+};
+
+\node [myRow,C15,align=center] at (-6.5,5) {
+	$F_{\anti{d}}$
+};
+
+\node [myRow,C85,align=left] at (-5,5) {~
+	$ \anti{d} = D_1 = 
+		\widetilde{\phi}_{\anti{d}}
+		+ \sqrt2\, \theta \chi_{\anti{d}}
+		+ \theta\theta \, F_{\anti{d}}
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Lepton, L-doublet
+
+\tikzset{myRow/.style={boxYellow,R15}}
+
+\node [myRow,C20,align=center] at (-17.5,4) {
+	$ L_I $
+};
+
+\node [myRow,C20,align=center] at (-15.5,4) {
+	$\quantNo{1}{2}{-\frac{1}{2}}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,4) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} \nu_{e\pL} \\ e_\pL \end{pmatrix}\!,~
+		\begin{pmatrix} \chi_{\nu_e} \\ \chi_e \end{pmatrix}
+	$
+};
+
+\node [myRow,C35,align=center] at (-10,4) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} \widetilde{\nu}_{e\pL} \\ \widetilde{e}_\pL \end{pmatrix}\!,~
+		\begin{pmatrix} \widetilde{\phi}_{\nu_e} \\ \widetilde{\phi}_e \end{pmatrix}
+	$
+};
+
+\node [myRow,C15,align=center] at (-6.5,4) {
+	$  \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} F_{\nu_e} \\ F_e \end{pmatrix}
+	$\!\!
+};
+
+\node [myRow,C85,align=left] at (-5,4) {~
+	$  \renewcommand{\arraystretch}{1.2}
+	L = L_1 = 
+		\begin{pmatrix}
+			\widetilde{\phi}_{\nu_e} + \sqrt2\, \theta \chi_{\nu_e} + \theta\theta \, F_{\nu_e} \\
+			\widetilde{\phi}_e + \sqrt2\, \theta\chi_e + \theta\theta \, F_e
+		\end{pmatrix}
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Antineutrino, L
+
+\tikzset{myRow/.style={boxGray,R10}}
+
+\node [myRow,C20,align=center] at (-17.5,2.5) {
+	$N_I$ ($\anti{\nu}_I$)
+};
+
+\node [myRow,C20,align=center] at (-15.5,2.5) {
+	$\quantNo{1}{1}{0}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,2.5) {
+	$\anti{\nu}_{e\pL} = (\nu_{e\pR})^\pC$,
+	$\chi_{\anti{\nu}_e}$
+};
+
+\node [myRow,C35,align=center] at (-10,2.5) {
+	$\widetilde{\anti{\nu}}_{e\pL}$, $\widetilde{\phi}_{\anti{\nu}_e}$
+};
+
+\node [myRow,C15,align=center] at (-6.5,2.5) {
+	$F_{\anti{\nu}_e}$
+};
+
+\node [myRow,C85,align=left] at (-5,2.5) {~
+	$ \anti{\nu} = N_1 = 
+		\widetilde{\phi}_{\anti{\nu}_e}
+		+ \sqrt2\, \theta \chi_{\anti{\nu}_e}
+		+ \theta\theta \, F_{\anti{\nu}_e}
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Positron, L
+
+\tikzset{myRow/.style={boxBlue,R10}}
+
+\node [myRow,C20,align=center] at (-17.5,1.5) {
+	$E_I$  ($\anti{e}_I$)
+};
+
+\node [myRow,C20,align=center] at (-15.5,1.5) {
+	$\quantNo{1}{1}{+1}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,1.5) {
+	$\anti{e}_\pL = (e_\pR)^\pC$,
+	$\chi_{\anti{e}}$
+};
+
+\node [myRow,C35,align=center] at (-10,1.5) {
+	$\widetilde{\anti{e}}_\pL$, $\widetilde{\phi}_{\anti{e}}$
+};
+
+\node [myRow,C15,align=center] at (-6.5,1.5) {
+	$F_{\anti{e}}$
+};
+
+\node [myRow,C85,align=left] at (-5,1.5) {~
+	$ \anti{e} = E_1 = 
+		\widetilde{\phi}_{\anti{e}}
+		+ \sqrt2\, \theta \chi_{\anti{e}}
+		+ \theta\theta \, F_{\anti{e}}
+	$
+};
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% u-Higgs, L-doublet
+
+\tikzset{myRow/.style={boxYellow,R15}}
+
+\node [myRow,C20,align=center] at (-17.5,0.5) {
+	$ H_u $
+};
+
+\node [myRow,C20,align=center] at (-15.5,0.5) {
+	$\quantNo{1}{2}{+\frac{1}{2}}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,0.5) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} \widetilde{H}^+_u \\ \widetilde{H}^0_u \end{pmatrix}
+	$
+};
+
+\node [myRow,C35,align=center] at (-10,0.5) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} H^+_u \\ H^0_u \end{pmatrix}
+	$
+};
+
+\node [myRow,C15,align=center] at (-6.5,0.5) {
+	$  \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} F^+_{H_u} \\ F^0_{H_u} \end{pmatrix}
+	$\!\!
+};
+
+\node [myRow,C85,align=left] at (-5,0.5) {~
+	$  \renewcommand{\arraystretch}{1.2}
+	H_u = 
+		\begin{pmatrix}
+			H^+_u + \sqrt2\, \theta \widetilde{H}^+_u + \theta\theta \, F^+_{H_u} \\ 
+			H^0_u + \sqrt2\, \theta \widetilde{H}^0_u + \theta\theta \, F^0_{H_u} 
+		\end{pmatrix}
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% d-Higgs, L-doublet
+
+\tikzset{myRow/.style={boxYellow,R15}}
+
+\node [myRow,C20,align=center] at (-17.5,-1) {
+	$ H_d $
+};
+
+\node [myRow,C20,align=center] at (-15.5,-1) {
+	$\quantNo{1}{2}{-\frac{1}{2}}$
+};
+
+\node [myRow,C35,align=center] at (-13.5,-1) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} \widetilde{H}^0_d \\ \widetilde{H}^-_d \end{pmatrix}
+	$
+};
+
+\node [myRow,C35,align=center] at (-10,-1) {
+	$ \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} H^0_d \\ H^-_d \end{pmatrix}
+	$
+};
+
+\node [myRow,C15,align=center] at (-6.5,-1) {
+	$  \renewcommand{\arraystretch}{1.2}
+		\begin{pmatrix} F^+_{H_d} \\ F^0_{H_d} \end{pmatrix}
+	$\!\!
+};
+
+\node [myRow,C85,align=left] at (-5,-1) {~
+	$  \renewcommand{\arraystretch}{1.2}
+	H_d = 
+		\begin{pmatrix}
+			H^0_d + \sqrt2\, \theta \widetilde{H}^0_d + \theta\theta \, F^+_{H_d}\\ 
+			H^-_d + \sqrt2\, \theta \widetilde{H}^-_d + \theta\theta \, F^0_{H_d}
+		\end{pmatrix}
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Superpotential
+
+\tikzset{myRow/.style={boxYellow,R10}}
+
+\node [boxRed,R10,C80,align=center] at (4.25,5.75) {
+	The Superpotential, Part I (`good' terms)
+};
+
+\node [boxGreen,R20,C80,align=left] at (4.25,4.75) {
+	\hspace{1mm} $
+		\mathcal{W}_1 = y^{IJ}_u \, U_I \, (Q_J \circ H_u) 
+		- y^{IJ}_d \, D_I \, (Q_J \circ H_d) 
+	$ 
+	\\[0.3em]
+	\hspace{12mm} $ 
+		+ \, y^{IJ}_\nu \, N_I \, (L_J \circ H_u)
+		- y^{IJ}_e \, E_I \, (L_J \circ H_d)
+	$
+	\\[0.2em]
+	\hspace{12mm} $ 
+		+ \, \mu \, (H_u \circ H_d)
+	$
+};
+
+\node [boxRed2,R10,C80,align=center] at (12.5,5.75) {\small
+	The Superpotential, Part II \\[-0.25em](terms that violate lepton/baryon numbers)
+};
+
+\node [boxGray,R20,C80,align=left] at (12.5,4.75) {
+	\hspace{1mm} $
+		\mathcal{W}_2 = \lambda^{IJK} \, E_I \, ( L_J \circ L_K ) 
+			+ \lambda^{\prime\,IJK} \, D_I \, ( L_J \circ Q_K ) 
+	$ 
+	\\[0.5em]
+	\hspace{12mm} $ 
+			+ \, \mu^{\prime\,I}_0 \, ( L_I \circ H_u ) 
+			+ \lambda^{\prime\prime\,IJK}_3 \, U_I D_J D_K
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Building superp.
+
+\node [boxWhite,minimum width=162.5mm, minimum height=147.5mm] at (4.25,2.5) {
+};
+
+\node [anchor=south,align=left] at (17.5,1.75) {
+	\textsf{\textbf{Superpotential} (construction)}
+};
+
+\draw (9,1.5) --  (6.5,0.75) --  (6.5,-1.5);
+\draw (11.25,1.5) -- (11.75,1);
+\draw (8.75,-3) -- (6.5,-3.5) -- (6.5,-5.5);
+\draw (11,-3) -- (13.5,-3.5);
+\draw (10,-3) -- (10,-5);
+\draw (8.75,-7) -- (8.25,-7.5) -- (8.25,-8.75);
+\draw (11.25,-7) -- (11.75,-7.5) -- (11.75,-10);
+\draw (10.5,0.5) -- (10,0) -- (10,-1.5);
+\draw (13,0.5) -- (13.5,0) -- (13.5,-1.5);
+\draw (18.5,-7) -- (18.5,-10.25);
+\draw (18.5,0.5) -- (18.5,-2.25);
+\draw (13.5,-4) -- (13.5,-4.5) -- (13.5,-5.75);
+\draw (14.5,-4) -- (16,-4.5) -- (17,-4.75);
+
+%%%%
+
+\tikzset{myRow/.style={boxYellow,C30,minimum height=7.5mm,inner sep=0,align=center}}
+
+\node [myRow,boxRed] at (8.5,2) {
+	$Q$ : $( \quantNo{3}{2}{+\frac{1}{6}} )$
+};
+
+\node [myRow] at (5,0.75) {
+	$\anti{u}$ : $( \quantNo{3}{1}{-\frac{2}{3}} )$
+};
+
+\node [myRow] at (10.25,1) {
+	$\anti{d}$ : $( \quantNo{3}{1}{+\frac{1}{3}} )$
+};
+
+\node [myRow] at (5,0) {
+	$H_u$ : $( \quantNo{1}{2}{+\frac{1}{2}} )$
+};
+
+\node [myRow] at (8.5,0) {
+	$H_d$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow] at (12,0) {
+	$L$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow,boxGreen,thin] at (5,-1) {
+	$U_I \, (Q_J \circ H_u$)
+};
+
+\node [myRow,boxGreen,thin] at (8.5,-1) {
+	$D_I \, (Q_J \circ H_d$)
+};
+
+\node [myRow,boxGray,thin] at (12,-1) {
+	$D_I \, (L_J \circ Q_K$)
+};
+
+%%%%
+
+\node [myRow,boxRed,C30] at (8.5,-2.5) {
+	$H_u$ : $( \quantNo{1}{2}{+\frac{1}{2}} )$
+};
+
+\node [myRow,C30] at (5,-3.5) {
+	$H_u$ : $( \quantNo{1}{2}{+\frac{1}{2}} )$
+};
+
+\node [myRow,C30] at (5,-4.25) {
+	$L$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow,C30] at (5,-5) {
+	$L$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [anchor=north] at (6.5,-5.75) {
+	$[F] \text{ in } \Phi^4 = \mathsf{M}^5$
+};
+
+\node [myRow] at (8.5,-3.5) {
+	$H_d$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow,boxGreen,thin] at (8.5,-4.5) {
+	$H_u \circ H_d$
+};
+
+\node [myRow] at (12,-3.5) {
+	$L$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow,boxGray,thin] at (15.5,-4.25) {
+	$L_I \circ H_u$
+};
+
+\node [myRow] at (12,-4.5) {
+	$\anti{\nu}$ : $( \quantNo{1}{1}{0} )$
+};
+
+\node [myRow,fill=black!40!green!3,thin] at (12,-5.5) {
+	$N_I \, (L_J \circ H_u)$
+};
+
+\node [myRow,boxRed] at (8.5,-6.5) {
+	$H_d$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow] at (6.75,-7.5) {
+	$H_d$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow] at (6.75,-8.25) {
+	$\anti{e}$ : $( \quantNo{1}{1}{+1} )$
+};
+
+\node [anchor=north] at (8.25,-9) {
+	$H_d \circ H_d = 0$
+};
+
+\node [myRow] at (10.25,-7.5) {
+	$L$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow] at (10.25,-8.25) {
+	$\anti{e}$ : $( \quantNo{1}{1}{+1} )$
+};
+
+\node [myRow,boxGreen,thin] at (10.25,-9.25) {
+	$E_I \, (L_J \circ H_d)$
+};
+
+\node [myRow,boxRed] at (17,-6.5) {
+	$\anti{u}$ : $( \quantNo{\overline3}{1}{-\frac{2}{3}} )$
+};
+
+\node [myRow,boxBlue] at (17,-7.5) {
+	$\overline{\mathbf{3}} \otimes \overline{\mathbf{3}} = 
+		\mathbf{3} \oplus \overline{\mathbf{6}}$
+};
+
+\node [myRow] at (17,-8.25) {
+	$\anti{d}$ : $( \quantNo{\overline3}{1}{+\frac{1}{3} })$
+};
+
+\node [myRow] at (17,-9) {
+	$\anti{d}$ : $( \quantNo{\overline3}{1}{+\frac{1}{3}} )$
+};
+
+\node [myRow,boxGray,thin] at (17,-10) {
+	$U_I D_J D_K$
+};
+
+\node [myRow,boxRed] at (17,1) {
+	$L$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+
+\node [myRow] at (17,0) {
+	$L$ : $( \quantNo{1}{2}{-\frac{1}{2}} )$
+};
+\node [myRow] at (17,-0.75) {
+	$\anti{e}$ : $( \quantNo{1}{1}{+1} )$
+};
+
+\node [myRow,boxGray,thin] at (17,-1.75) {
+	$E_I \, (L_J \circ L_K$)
+};
+
+%%%%%
+
+\tikzset{circled/.style={anchor=north,fill=black!60!blue,thin,circle,inner sep=2pt}}
+
+\node [circled] at (8.25,2) {\color{white}
+	\textbf{1}
+};
+
+\node [circled] at (8.25,-2.5) {\color{white}
+	\textbf{2}
+};
+
+\node [circled] at (8.25,-6.5) {\color{white}
+	\textbf{3}
+};
+
+\node [circled] at (16.75,1) {\color{white}
+	\textbf{4}
+};
+
+\node [circled] at (16.75,-6.5) {\color{white}
+	\textbf{5}
+};
+
+\node [anchor=north west,C30,align=center,red] at (12,-1.75) {
+	$\Delta L = 1$
+};
+
+\node [anchor=north west,C30,align=center,red] at (17,-2.5) {
+	$\Delta L = 1$
+};
+
+\node [anchor=north west,C30,align=center,red] at (15.5,-5) {
+	$\Delta L = 1$
+};
+
+\node [anchor=north west,C30,align=center,red] at (17,-10.75) {
+	$\Delta B = 1$
+};
+
+\node [anchor=north west,C80,align=left] at (4.5,-10.25) {
+	$\circ \equiv$ SU(2) invariant product of doublets: \\[0.5em]
+	~~$
+	\begin{pmatrix} \Phi_1 \\ \Phi_2 \end{pmatrix} \circ 
+	\begin{pmatrix} \Psi_1 \\ \Psi_2 \end{pmatrix}
+	\equiv \Phi_1 \Psi_2 - \Phi_2 \Psi_1
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Vector sf
+
+\node [anchor=south west,align=left] at (-20.25,-4) {\large
+	\textsf{\textbf{Superspace Formalism}}
+};
+
+\node [boxWhite,R20,C80] at (-20.5,-4) {
+	A \textsf{\textbf{vector superfield}}, SU($n$), in WZ gauge: \\[0.5em]
+	\hfill $
+		V^i(x,\theta,\sbar{\theta}) ~\equiv~
+		\theta \sigma^\mu \sbar{\theta} \, V^i_\mu(x) \, 
+		+ \theta\theta \, \sbar{\theta}\sbar{\lambda}^i(x)
+	$ \hfill\! \\[0.2em ]
+	\hfill $
+		+\, \sbar{\theta}\sbar{\theta} \, \theta\lambda^i(x)
+		+ \tfrac{1}{2} \theta\theta \, \sbar{\theta}\sbar{\theta} \, D^i(x),
+		~~ V \equiv V^i T^i
+	$ \hfill\!
+};
+
+\node [boxWhite,R15,C80] at (-20.5,-6) {
+	The \textsf{\textbf{field strength superfield}}: \\[0.5em]
+	\hfill $
+		\mathcal{V}_\alpha \equiv \mathcal{V}^i_\alpha T^i \equiv -\tfrac{1}{4} \sbar D_{\dot\beta} \sbar D^{\dot\beta} 
+		\left( \ee^{-2gV} D_\alpha \ee^{2gV} \right)
+	$ \hfill\!
+};
+
+\node [boxYellow,R15,C80] at (-20.5,-7.75) {
+	The gauge kinetic term: \\[0.5em]
+	\hfill $
+		\tfrac{1}{4} (\mathcal{V}^{i\,\alpha} \mathcal{V}^i_\alpha) \big\rvert_F + \mathrm{h.c.}
+	$ \hfill\!
+};
+
+\node [boxWhite,minimum height=15mm,C80] at (-20.5,-9.5) {
+	$\tfrac{1}{4} (\mathcal{V}^{i\,\alpha} \mathcal{V}^i_\alpha) \big\rvert_F $ 
+	~(mod tot.\,der.) $=$ \\[0.5em]
+	\hfill $
+		  \tfrac{1}{2} D^i D^i
+		+ \ii \sbar\lambda^i \sbar\sigma^\mu D_\mu \lambda^i
+		- \tfrac{1}{4} F^i_{\mu\nu} F^{i\,\mu\nu}
+	$ \hfill\! \\[0.8em]
+};
+
+\node [boxGray,R15,C80] at (-4,-12) {
+	Opt.\;Fayet-Iliopoulos $D$-term (in U(1) only) \\[0.5em]
+	\hfill $
+		-2\kappa V \big\rvert_D = - \kappa D
+	$ \hfill (not in MSSM)
+};
+
+\node [boxWhite,C80,minimum height=32.5mm, align=left] at (-20.5,-11.25) {
+	The chiral covariant derivatives:\\[0.5em]
+	\hspace{2mm} $
+		D_\alpha \equiv  \partial_\alpha 
+		- \ii\, \sigma^\mu_{\alpha\dot\alpha} \sbar\theta^{\dot\alpha} 
+		\, \partial_\mu, 
+	$\\[0.4em]
+	\hspace{2mm} $
+		D^\alpha \equiv -\partial^\alpha 
+		+ \ii\, \sbar\theta_{\dot\alpha} \sbar\sigma^{\mu\,\dot\alpha\alpha} 
+		\, \partial_\mu,
+	$\\[0.4em]
+	\hspace{2mm} $
+		\sbar{D}^{\dot\alpha} \equiv \sbar\partial^{\dot\alpha} 
+		- \, \ii\, \sbar\theta_{\dot\alpha} \sbar\sigma^{\mu\,\dot\alpha\alpha} 
+		\, \partial_\mu,
+	$\\[0.3em]
+	\hspace{2mm} $
+		\sbar{D}_{\dot\alpha} \equiv - \sbar\partial_{\dot\alpha} 
+		+ \, \ii\, \theta^\alpha \sigma^\mu_{\alpha\dot\alpha} 
+		\, \partial_\mu
+	$
+};
+
+\draw (-12.25,-14) -- (-7.5,-14);
+\node [anchor=north west, align=left] at (-12.25,-14) {\footnotesize
+	$^{(*)}$ $y$ are complex composite bosonic coordinates.
+};
+
+\node [black!50!blue!50,boxWhite,text width=25mm,align=left] at (-15.35,-12.4) {
+	{\small Observe:}\\[0.4em]\color{black}
+	~$
+		\partial^\alpha = -\varepsilon^{\alpha\beta} \partial_\beta
+	$\\[0.3em]
+	~$
+		\sbar\partial^{\dot\alpha} = -\varepsilon^{\dot\alpha\dot\beta} \sbar\partial_{\dot\beta}
+	$
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chiral sf
+
+\node [boxWhite,minimum height=35mm,C80] at (-12.25,-4) {
+	A \textsf{\textbf{chiral superfield}}: \\[0.5em]
+	\hfill $
+		\Phi(y,\theta) =
+		\phi(y)
+		+ \sqrt2\, \theta \chi(y)
+		+ \theta\theta \, F(y)
+	$ \hfill\!\\[0.5em]
+	where $y^\mu = x^\mu - \ii\, \theta\sigma^\mu\sbar\theta$. $^{(*)}$ 
+	% complex composite bosonic coordinates
+	Expanded: \\[0.5em]
+	\hfill $
+		\Phi(x,\theta,\sbar\theta) ~=~
+		\phi(x) 
+		+ \sqrt2 \, \theta\chi(x) + \theta\theta \, F(x)
+	$ \hfill\! \\[0.3em]
+	\hfill $
+		-\, \tfrac{1}{4} \, \theta\theta \, \sbar\theta\sbar\theta \, \square\phi(x)
+		- \tfrac{\ii}{\sqrt2} \, \theta\theta \, \sbar\theta\sbar\sigma^\mu\partial_\mu \chi(x)
+	$ \hfill\!
+};
+
+\node [boxYellow,R15,C80] at (-12.25,-7.75) {
+	The canonical and gauge inv.\:kinetic terms: \\[0.5em]
+	\hfill $
+		\text{free:} ~ ( \Phi^\dagger \Phi ) \big\rvert_D,
+		~~~ \text{matter:} ~
+		( \Phi^\dagger \ee^{2gV} \Phi ) \big\rvert_D
+	$ \hfill\!
+};
+
+\node [boxWhite,R15,C80] at (-12.25,-9.5) {
+	$( \Phi^\dagger \Phi ) \big\rvert_D $ 
+	~(mod tot.\,der.) $=$\\[0.5em]
+	\hfill $
+		  \partial_\mu\phi^\dagger \,\partial^\mu\phi 
+		+ \ii \sbar{\chi} \sbar{\sigma}^\mu \partial_\mu \chi
+		+ F^\dagger F
+	$ \hfill\!
+};
+
+\node [boxWhite,minimum height=22.5mm,C80] at (-12.25,-11.25) {
+	U(1): $( \Phi^\dagger \ee^{2gV} \Phi ) ~ \big\rvert_D $ 
+	~(mod tot.\,der.)  $=$ \\[0.5em]
+	\hfill $
+		  (D_\mu\phi)^\dagger \,D^\mu\phi 
+		+ \ii \sbar{\chi} \sbar{\sigma}^\mu D_\mu \chi
+		+ F^\dagger F 
+	$ \hfill\! \\[0.5em]
+	\hfill $
+		-\, g \, \phi^\dagger \phi \, D
+		- ( \sqrt2 g \, \chi\lambda \, \phi^\dagger + \mathrm{h.c.})
+	$ \hfill\!
+};
+
+\node [boxWhite,minimum height=17.5mm,C80] at (-4,-4) {
+	The \textsf{\textbf{superpotential}} for the collection $\{\Phi_I\}$: \\[0.7em]
+	\hfill $
+		\mathcal{W}(\Phi_I) = \frac{1}{2} m^{IJ} \Phi_I \Phi_J 
+		+ \frac{1}{6} y^{IJK} \Phi_I \Phi_J \Phi_K
+	$ \hfill\!\\[-0.4em]~
+};
+
+\node [boxYellow,R15,C80] at (-4,-7.75) {
+	The interaction term: \\[0.5em]
+	\hfill $
+		\mathcal{W}(\Phi_I) \big\rvert_F + \mathrm{ h.c.}
+	$ \hfill\!
+};
+
+\node [boxWhite,minimum height=17.5mm,C80] at (-4,-9.5) {
+	$\mathcal{W}(\Phi_I) \big\rvert_F + \mathrm{h.c.} =$ \\[0.5em]
+	\hfill $ 
+		\frac{\partial}{\partial\phi_I} \mathcal{W}(\phi_I) \, F_I
+		- \frac{1}{2} \frac{\partial^2}{\partial\phi_I\partial\phi_J}\mathcal{W}(\phi_I) \, \chi_I\chi_J
+		+ \mathrm{h.c.}
+	$ \hfill\!
+};
+
+
+\node [boxGray,R15,C80] at (-4,-6) {
+	Opt.\;$F$-term (as $c^I \Phi_I$ in the superpotential):\\[0.5em]
+	\hfill $
+		  - k \Phi \big\rvert_F = - k F
+	$ \hfill (not in MSSM)
+};
+
+\node [boxYellow,minimum height=21.5mm,C80] at (12.5,11) {\\[0.1em]
+	\hfill $ \displaystyle
+		\mathcal{L}^\text{g-kin} =
+		\sum _{\mathcal{V}}
+		\frac{1}{4} (\mathcal{V}^\alpha \mathcal{V}_\alpha) \big\rvert_F + \mathrm{h.c.}
+	$ \hfill\! \\[0.5em]
+	$\mathcal{V}$ runs over all the field strength superfields
+};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\node [anchor=north west, align=left] at (4.5,-12.75) {
+	Useful formulae:
+};
+
+\node [anchor=north west, align=left] at (8,-12.75) {
+	$
+		\mathcal{F}(\Phi) \big\rvert_D
+		\equiv \int \dd^2\theta \, \dd^2 \sbar{\theta} 
+		\; \mathcal{F}(\Phi)
+	$,\\[0.5em]
+	$
+		\mathcal{F}(\Phi) \big\rvert_F 
+		\equiv \int \dd^2\theta 
+		\; \mathcal{F}(\Phi)
+	$,
+};
+
+\node [anchor=north west, align=left] at (13.25,-12.75) {
+	In the WZ gauge: $
+		\ee^V = 1 + V + \frac{1}{2} V^2
+	$,\\[0.5em]
+	$
+		V^2 = \tfrac{1}{2} \theta\theta \, \sbar{\theta}\sbar{\theta} \, V_\mu V^\mu
+	$,~~
+	$V^n = 0$ $(n \ge 3)$.
+};
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
